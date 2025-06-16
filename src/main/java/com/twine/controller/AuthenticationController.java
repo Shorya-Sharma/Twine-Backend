@@ -2,8 +2,10 @@ package com.twine.controller;
 
 import com.twine.dto.AuthenticationRequest;
 import com.twine.dto.AuthenticationResponse;
+import com.twine.dto.InitiateRegistrationRequest;
 import com.twine.dto.RegisterRequest;
-import com.twine.service.AuthenticationService;
+import com.twine.service.interfaces.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class AuthenticationController {
 
     @PostMapping("/register/initiate")
     public ResponseEntity<Void> initiateRegistration(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody InitiateRegistrationRequest request
     ) {
         authenticationService.initiateRegistration(request);
         return ResponseEntity.ok().build();
@@ -28,14 +30,14 @@ public class AuthenticationController {
 
     @PostMapping("/register/complete")
     public ResponseEntity<AuthenticationResponse> completeRegistration(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequest request
     ) {
         return ResponseEntity.ok(authenticationService.completeRegistration(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
+            @Valid @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }

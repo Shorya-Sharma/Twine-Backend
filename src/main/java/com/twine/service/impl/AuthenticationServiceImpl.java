@@ -3,6 +3,7 @@ package com.twine.service.impl;
 import com.twine.constants.ErrorConstants;
 import com.twine.dto.AuthenticationRequest;
 import com.twine.dto.AuthenticationResponse;
+import com.twine.dto.InitiateRegistrationRequest;
 import com.twine.dto.RegisterRequest;
 import com.twine.entity.AuthUser;
 import com.twine.entity.Role;
@@ -32,7 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     @Transactional
-    public void initiateRegistration(RegisterRequest request) {
+    public void initiateRegistration(InitiateRegistrationRequest request) {
         validateEmailNotExists(request.getEmail());
         otpService.generateAndSendOtp(request.getEmail());
     }
@@ -70,11 +71,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     private AuthUser createUser(RegisterRequest request) {
-        AuthUser authUser = new AuthUser();
-        authUser.setEmail(request.getEmail());
-        authUser.setPassword(passwordEncoder.encode(request.getPassword()));
-        authUser.setRole(Role.USER);
-        return authUserRepository.save(authUser);
+        return authUserRepository.save(
+            AuthUser.builder()
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.USER)
+                .enabled(true)
+                .build()
+        );
     }
 
     private void authenticateUser(AuthenticationRequest request) {
