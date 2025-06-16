@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Verification Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .otp-code {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to Twine!</h2>
+        <p>Thank you for registering. Please use the following verification code to complete your registration:</p>
+        
+        <div class="otp-code" th:text="${otp}">123456</div>
+        
+        <p>This code will expire in 5 minutes.</p>
+        
+        <p>If you didn't request this code, please ignore this email.</p>
+        
+        <div class="footer">
+            <p>Best regards,<br>The Twine Team</p>
+        </div>
+    </div>
+</body>
+</html> 

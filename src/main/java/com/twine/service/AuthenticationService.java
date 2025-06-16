@@ -24,11 +24,22 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final OtpService otpService;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public void initiateRegistration(RegisterRequest request) {
         if (authUserRepository.existsByEmail(request.getEmail())) {
             throw new ResourceAlreadyExistsException("Email already registered");
         }
+
+        otpService.generateAndSendOtp(request.getEmail());
+    }
+
+    public AuthenticationResponse completeRegistration(RegisterRequest request) {
+        if (authUserRepository.existsByEmail(request.getEmail())) {
+            throw new ResourceAlreadyExistsException("Email already registered");
+        }
+
+        otpService.validateOtp(request.getEmail(), request.getOtp());
 
         var authUser = new AuthUser();
         authUser.setEmail(request.getEmail());
