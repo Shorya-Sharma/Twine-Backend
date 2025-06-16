@@ -2,7 +2,6 @@ package com.twine.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,9 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
-@Table(name = "users")
-public class User implements UserDetails {
+@Table(name = "auth_users")
+public class AuthUser implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +27,6 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
