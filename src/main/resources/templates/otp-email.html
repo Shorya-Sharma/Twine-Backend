@@ -1,50 +1,102 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Your Verification Code</title>
+    <meta charset="UTF-8" />
+    <title>Your Twine Verification Code</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+          font-family: 'Poppins', sans-serif;
+          background: #fff0f6;
+          margin: 0;
+          padding: 0;
+          color: #4a4a4a;
         }
+
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+          max-width: 600px;
+          margin: 40px auto;
+          background: #ffffff;
+          border-radius: 20px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+          padding: 40px 30px;
         }
+
+        .header {
+          text-align: center;
+        }
+
+        .header h1 {
+          font-size: 28px;
+          color: #e91e63;
+          margin-bottom: 8px;
+        }
+
+        .header .emoji {
+          font-size: 36px;
+        }
+
+        .message {
+          text-align: center;
+          margin: 24px 0;
+        }
+
+        .message p {
+          font-size: 16px;
+          line-height: 1.6;
+          margin: 12px 0;
+        }
+
         .otp-code {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff;
-            text-align: center;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            margin: 20px 0;
+          font-size: 36px;
+          font-weight: 700;
+          color: #ffffff;
+          background: linear-gradient(135deg, #e91e63, #9c27b0);
+          padding: 20px 30px;
+          border-radius: 12px;
+          display: inline-block;
+          letter-spacing: 4px;
+          margin: 20px 0;
         }
+
         .footer {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #666;
+          text-align: center;
+          margin-top: 40px;
+          font-size: 13px;
+          color: #888;
+        }
+
+        .footer a {
+          color: #e91e63;
+          text-decoration: none;
+        }
+
+        .footer a:hover {
+          text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Welcome to Twine!</h2>
-        <p>Thank you for registering. Please use the following verification code to complete your registration:</p>
-        
-        <div class="otp-code" th:text="${otp}">123456</div>
-        
-        <p>This code will expire in 5 minutes.</p>
-        
-        <p>If you didn't request this code, please ignore this email.</p>
-        
-        <div class="footer">
-            <p>Best regards,<br>The Twine Team</p>
-        </div>
+<div class="container">
+    <div class="header">
+        <div class="emoji">💌</div>
+        <h1>Hey Lover!</h1>
     </div>
+
+    <div class="message">
+        <p>We’re excited to have you on <strong>Twine</strong> — where real connections begin.</p>
+        <p>Use the one-time code below to verify your email and start mingling 💕</p>
+
+        <div class="otp-code" th:text="${otp}">123456</div>
+
+        <p>This code is valid for 5 minutes.</p>
+        <p>If you didn’t request this, just ignore it — love will wait ❤️</p>
+    </div>
+
+    <div class="footer">
+        <p>Need help? Contact us at <a href="mailto:support@twine.com">support@twine.com</a></p>
+        <p>&copy; 2025 Twine. All hearts reserved 💖</p>
+    </div>
+</div>
 </body>
-</html> 
+</html>

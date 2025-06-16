@@ -10,6 +10,7 @@ import com.twine.exception.ResourceAlreadyExistsException;
 import com.twine.exception.ResourceNotFoundException;
 import com.twine.repository.AuthUserRepository;
 import com.twine.security.JwtService;
+import com.twine.service.interfaces.OtpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
