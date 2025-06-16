@@ -1,5 +1,6 @@
 package com.twine.security;
 
+import com.twine.constants.AuthConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,10 +18,10 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret}")
+    @Value("${" + AuthConstants.JWT_SECRET_PROPERTY + "}")
     private String secretKey;
 
-    @Value("${jwt.expiration}")
+    @Value("${" + AuthConstants.JWT_EXPIRATION_PROPERTY + "}")
     private long jwtExpiration;
 
     public String extractUsername(String token) {

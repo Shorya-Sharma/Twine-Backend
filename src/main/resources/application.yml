@@ -10,10 +10,32 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.gmail.com
+    port: 587
+#    username: ${MAIL_USERNAME}
+#    password: ${MAIL_PASSWORD}
+    username: twine4163@gmail.com
+    password: mlxn zkdj jdjr uhsb
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   port: 8080
   servlet:
     context-path: /twine
+
+logging:
+  level:
+    root: INFO
+    org.springframework: DEBUG
+    com.twine: DEBUG
