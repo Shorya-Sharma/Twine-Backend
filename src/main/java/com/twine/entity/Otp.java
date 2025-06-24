@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "otps")
+@Table(name = "otp_records")
 @EntityListeners(AuditingEntityListener.class)
 public class Otp {
     @Id
@@ -37,4 +37,4 @@ public class Otp {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-} 
+}
