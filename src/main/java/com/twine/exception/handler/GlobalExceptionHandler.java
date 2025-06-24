@@ -1,6 +1,8 @@
-package com.twine.exception;
+package com.twine.exception.handler;
 
 import com.twine.dto.ErrorResponse;
+import com.twine.exception.BaseException;
+
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,9 +15,21 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global exception handler for REST controllers. Handles application-specific
+ * and generic exceptions,
+ * providing consistent error responses for clients.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles custom BaseException and returns a structured error response.
+     *
+     * @param ex      the BaseException thrown
+     * @param request the HTTP request
+     * @return a ResponseEntity containing the error response and status
+     */
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<ErrorResponse> handleBaseException(BaseException ex, HttpServletRequest request) {
         ErrorResponse errorResponse = ErrorResponse.builder()
@@ -29,8 +43,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, ex.getStatus());
     }
 
+    /**
+     * Handles authentication failures due to bad credentials.
+     *
+     * @param ex      the BadCredentialsException thrown
+     * @param request the HTTP request
+     * @return a ResponseEntity containing the error response and 401 status
+     */
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(BadCredentialsException ex,
+            HttpServletRequest request) {
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(401)
@@ -42,6 +64,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, org.springframework.http.HttpStatus.UNAUTHORIZED);
     }
 
+    /**
+     * Handles validation errors for method arguments and returns a map of field
+     * errors.
+     *
+     * @param ex the MethodArgumentNotValidException thrown
+     * @return a ResponseEntity containing a map of field names to error messages
+     *         and 400 status
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -53,6 +83,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, org.springframework.http.HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles all uncaught exceptions and returns a generic error response.
+     *
+     * @param ex      the Exception thrown
+     * @param request the HTTP request
+     * @return a ResponseEntity containing the error response and 500 status
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex, HttpServletRequest request) {
         ErrorResponse errorResponse = ErrorResponse.builder()
@@ -65,4 +102,4 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorResponse, org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR);
     }
-} 
+}

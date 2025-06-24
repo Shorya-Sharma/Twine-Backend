@@ -4,9 +4,9 @@ jwt:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/twine
-    username: twineuser
-    password: twinepass123
+    url: jdbc:postgresql://localhost:5432/app_db
+    username: root
+    password: admin123
   jpa:
     hibernate:
       ddl-auto: update
