@@ -121,6 +121,7 @@ public class EmailOtpServiceImpl implements IOtpService {
                 .otpCode(otpValue)
                 .expiryTime(LocalDateTime.now().plusMinutes(OtpConstants.OTP_VALIDITY_MINUTES))
                 .used(false)
+                .createdAt(LocalDateTime.now())
                 .build();
         otpRepository.save(otp);
         log.info("OTP saved for email: {}", recipientEmail);
